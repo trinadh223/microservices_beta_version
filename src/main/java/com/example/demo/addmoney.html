@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Merchant Check Out Page</title>
+</head>
+<body>
+<center><h1>Please do not refresh this page...</h1></center>
+<form method="post" action="https://securegw-stage.paytm.in/theia/processTransaction?ORDER_ID=order1" name="f1">
+    <table border="1">
+        <tbody>
+        <input type="hidden" name="MID" value="merchant-perpule-stg">
+        <input type="hidden" name="WEBSITE" value="WEBSTAGING">
+        <input type="hidden" name="REQUEST_TYPE" value="ADD_MONEY">
+        <input type="hidden" name="SSO_TOKEN" value="ca54af28-411f-4042-b660-53a847f01700">
+        <input type="hidden" name="ORDER_ID" value="order1">
+        <input type="hidden" name="CUST_ID" value="1000039359">
+        <input type="hidden" name="MOBILE_NO" value="7397430279">
+        <input type="hidden" name="EMAIL" value="amba.rohit8@gmail.com">
+        <input type="hidden" name="INDUSTRY_TYPE_ID" value="Retail">
+        <input type="hidden" name="CHANNEL_ID" value="WEB">
+        <input type="hidden" name="TXN_AMOUNT" value="1.00">
+        <input type="hidden" name="CALLBACK_URL" value="https://localhost:8080/addmoney">
+        <input type="hidden" name="CHECKSUMHASH" value="/gkJWWp5tDgGZ75wxTdNmSPLXfw6C710nufctPiPwjVLnIEdhkkYZ74NL5HKWUUu2q0W9mHvoOEwYJvUU0XF+z6qwIxhpMhjaUECh2Kf06A=">
+        </tbody>
+    </table>
+    <script type="text/javascript">
+        document.f1.submit();
+    </script>
+</form>
+</body>
+</html>

@@ -67,4 +67,8 @@ public class DemoApplication {
 	}
 
 
+	@RequestMapping("/addmoney")
+    public void addingmoney(){}
+
+
 }
