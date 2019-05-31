@@ -29,6 +29,8 @@ public class DemoApplication {
 	Account account;
 	SendOtpResponse otpresponse;
 	ValidateOtpResponse validateOtpResponse;
+	ValidateTokenResponse validateTokenResponse;
+	AutoDebitResponse autoDebitResponse;
 
 
 	@RequestMapping("/sendotp")
@@ -53,10 +55,12 @@ public class DemoApplication {
 	}
 
 	@RequestMapping("/validatetoken")
-	public String validatingtoken(){
+	public ValidateTokenResponse validatingtoken(){
 		ValidateToken token=new ValidateToken(validateOtpResponse.getAccess_token());
 		token.validate_token();
-		return token.getResponseData();
+		Gson g=new Gson();
+		validateTokenResponse= g.fromJson(token.getResponseData(),ValidateTokenResponse.class);
+		return validateTokenResponse;
 	}
 
 	@RequestMapping("/checkbalance")
@@ -66,9 +70,23 @@ public class DemoApplication {
 		return check.getResponseData();
 	}
 
+	@RequestMapping("/revokeaccess")
+	public String revokingaccess(){
+		RevokeAccess revoke=new RevokeAccess(validateOtpResponse.getAccess_token());
+		revoke.revoke_access();
+		return revoke.getResponseData();
+	}
 
-	@RequestMapping("/addmoney")
-    public void addingmoney(){}
+	@RequestMapping("/autodebit")
+	public AutoDebitResponse debiting(@RequestParam(value="amount", defaultValue="0.00") String amount) {
+		AutoDebit deb =new AutoDebit(validateTokenResponse.getMobile(),amount);
+		deb.auto_debit();
+		Gson g=new Gson();
+		autoDebitResponse= g.fromJson(deb.getResponseData(),AutoDebitResponse.class);
+		return autoDebitResponse;
+	}
+
+
 
 
 }
