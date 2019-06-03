@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.google.gson.Gson;
+import com.mysql.cj.x.protobuf.MysqlxCrud;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,7 @@ public class DemoApplication {
 
 	@RequestMapping("/sendotp")
 	public SendOtpResponse sendingotp(@RequestParam(value="number", defaultValue="World") String number ) {
+
 		SendOtp so = new SendOtp("", "+91" + number);
 		so.Send_OTP();
 		account=new Account(counter.incrementAndGet(), String.format(template, number));
@@ -84,6 +86,13 @@ public class DemoApplication {
 		Gson g=new Gson();
 		autoDebitResponse= g.fromJson(deb.getResponseData(),AutoDebitResponse.class);
 		return autoDebitResponse;
+	}
+
+	@RequestMapping("/transactionstatus")
+	public String txnstatus(){
+		TransactionStatus stat=new TransactionStatus();
+		stat.transaction_status();
+		return stat.getResponseData();
 	}
 
 

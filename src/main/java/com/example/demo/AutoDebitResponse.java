@@ -17,18 +17,18 @@ public class AutoDebitResponse {
 
     String MBID;
     public AutoDebitResponse(String txnId, String MID, String orderId, String txnAmount, String bankTxnId, String responseCode, String responseMessage, String status, String paymentMode, String bankName, String checkSum, String custId, String MBID) {
-        TxnId = txnId;
+        this.TxnId = txnId;
         this.MID = MID;
         this.orderId = orderId;
-        TxnAmount = txnAmount;
-        BankTxnId = bankTxnId;
-        ResponseCode = responseCode;
-        ResponseMessage = responseMessage;
-        Status = status;
-        PaymentMode = paymentMode;
-        BankName = bankName;
-        CheckSum = checkSum;
-        CustId = custId;
+        this.TxnAmount = txnAmount;
+        this.BankTxnId = bankTxnId;
+        this.ResponseCode = responseCode;
+        this.ResponseMessage = responseMessage;
+        this.Status = status;
+        this.PaymentMode = paymentMode;
+        this.BankName = bankName;
+        this.CheckSum = checkSum;
+        this.CustId = custId;
         this.MBID = MBID;
     }
 

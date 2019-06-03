@@ -72,7 +72,6 @@ public void auto_debit() {
         DataOutputStream requestWriter = new DataOutputStream(connection.getOutputStream());
         requestWriter.writeBytes(postData);
         requestWriter.close();
-        String responseData = "";
         InputStream is = connection.getInputStream();
         BufferedReader responseReader = new BufferedReader(new InputStreamReader(is));
         if ((responseData = responseReader.readLine()) != null) {

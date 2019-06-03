@@ -20,7 +20,7 @@ public class AddMoney {
     String merchantKey = "jlgBKygCagp6PKECMEbLBfCviJorleAj";
     // Key in your staging and production merchant key available in your dashboard
     String orderId = "order1";
-    String sso_token = "ca54af28-411f-4042-b660-53a847f01700";
+    String sso_token = "4ff34c02-1a5c-43f8-95fc-091d53b01700";
     String channelId = "WEB";
     String custId = "1000039359";
     String mobileNo = "7397430279";
