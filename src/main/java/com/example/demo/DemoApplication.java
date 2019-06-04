@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import com.google.gson.Gson;
-import com.mysql.cj.x.protobuf.MysqlxCrud;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +31,9 @@ public class DemoApplication {
 	ValidateOtpResponse validateOtpResponse;
 	ValidateTokenResponse validateTokenResponse;
 	AutoDebitResponse autoDebitResponse;
+	CheckBalanceResponse checkBalanceResponse;
+	RefundStatusResponse refundStatusResponse;
+	TransactionStatusResponse transactionStatusResponse;
 
 
 	@RequestMapping("/sendotp")
@@ -65,12 +67,15 @@ public class DemoApplication {
 		return validateTokenResponse;
 	}
 
+
+
 	@RequestMapping("/checkbalance")
 	public String checkingbalance(){
-		CheckBalance check=new CheckBalance(validateOtpResponse.getAccess_token());
-		check.check_balance();
-		return check.getResponseData();
-	}
+		CheckBalance check=new CheckBalance();
+		check.check_balance(null);
+		Gson g = new Gson();
+		checkBalanceResponse=g.fromJson(check.getResponseData(),CheckBalanceResponse.class);
+	return check.getResponseData();    }
 
 	@RequestMapping("/revokeaccess")
 	public String revokingaccess(){
@@ -94,6 +99,25 @@ public class DemoApplication {
 		stat.transaction_status();
 		return stat.getResponseData();
 	}
+
+
+	@RequestMapping("/refund")
+	public String ref(){
+		Refund refu=new Refund(transactionStatusResponse.getORDERID(),transactionStatusResponse.getTXNID(),validateTokenResponse.getMobile());
+		refu.refund_init();
+		return refu.getResponseData();
+	}
+
+	@RequestMapping("/refundstatus")
+	public RefundStatusResponse refundstatus(){
+		RefundStatus ref = new RefundStatus(transactionStatusResponse.getORDERID(),transactionStatusResponse.getTXNID(),validateTokenResponse.getMobile());
+		ref.Refund_status_api();
+		Gson g=new Gson();
+		refundStatusResponse=g.fromJson(ref.getResponseData(),RefundStatusResponse.class);
+		return refundStatusResponse;
+	}
+
+
 
 
 

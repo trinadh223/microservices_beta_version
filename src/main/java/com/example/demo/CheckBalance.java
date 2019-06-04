@@ -17,38 +17,37 @@ public class CheckBalance {
         return responseData;
     }
 
-    public CheckBalance() {
-    }
-    ValidateOtpResponse votp;
-     String mid = "Delvit07224170213556";
+    HttpURLConnection connection = null;
+
+    String mid = "Delvit07224170213556";
      String orderId = "ORDER_123456789";
-     String userToken = votp.getAccess_token();
-     String totalAmount = "1.00";
+     String ssoToken = "31add395-f16b-4dc0-b066-9139b5821700";
+     String amount = "100";
      String MERCHANT_KEY = "&!vj74@Ri&g6U1TI";
-    public void check_balance(){
-        TreeMap<String, String> paytmParams = new TreeMap<String, String>();
-        paytmParams.put("MID", mid);
-        paytmParams.put("userToken", userToken);
-        paytmParams.put("totalAmount", totalAmount);
-
+     Long time=System.currentTimeMillis();
+    public void check_balance(String args[]){
         try {
-            URL url = new URL("https://securegw-stage.paytm.in/paymentservices/pay/consult"); // for staging
-            String checksum = CheckSumServiceHelper.getCheckSumServiceHelper().genrateCheckSum(MERCHANT_KEY, paytmParams);
-            String paytmParams_head = "{\"clientId\":\"merchant-perpule-stg\",\"version\":\"V1\",\"requestTimestamp\":\""+votp.getExpires()+"\",\"channelId\":\"WAP\",\"signature\":\""+checksum+"\"}";
-            String paytmParams_body = "{\"userToken\":\"" + userToken + "\",\"totalAmount\":\""+totalAmount+"\",\"mid\":\""+mid+"\"}";
-            String post_data = "{\"body\":" + paytmParams_body + ",\"head\":" + paytmParams_head + "}";
 
+            String bodyTemp = "{\"userToken\": \"" + ssoToken + "\",\"totalAmount\": \"" + amount + "\","
+                    + "\"mid\": \"" + mid + "\"}";
 
+            String checksum = CheckSumServiceHelper.getCheckSumServiceHelper().genrateCheckSum(MERCHANT_KEY, bodyTemp);
 
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            String body = "{\"head\":{\"clientId\":\"merchant-perpule-stg\",\"version\":\"v1\",\"requestTimestamp\":\"Time\","
+                    + "\"channelId\":\"WEB\",\"signature\":\"" + checksum + "\"},\"body\":" + bodyTemp + "}";
+
+            URL url = new URL("https://securegw-stage.paytm.in/paymentservices/pay/consult");
+            connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
+
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setUseCaches(false);
             connection.setDoOutput(true);
 
-            DataOutputStream requestWriter = new DataOutputStream(connection.getOutputStream());
-            requestWriter.writeBytes(post_data);
-            requestWriter.close();
+            DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+            wr.writeBytes(body);
+            wr.close();
+
             InputStream is = connection.getInputStream();
             BufferedReader responseReader = new BufferedReader(new InputStreamReader(is));
             if ((responseData = responseReader.readLine()) != null) {

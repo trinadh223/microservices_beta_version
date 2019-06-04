@@ -15,12 +15,12 @@ import java.util.TreeMap;
 public class AddMoney {
     public AddMoney(){}
 
-    String merchantMid = "merchant-perpule-stg";
+    String merchantMid = "Delvit07224170213556";
     // Key in your staging and production MID available in your dashboard
     String merchantKey = "jlgBKygCagp6PKECMEbLBfCviJorleAj";
     // Key in your staging and production merchant key available in your dashboard
     String orderId = "order1";
-    String sso_token = "4ff34c02-1a5c-43f8-95fc-091d53b01700";
+    String sso_token = "31add395-f16b-4dc0-b066-9139b5821700";
     String channelId = "WEB";
     String custId = "1000039359";
     String mobileNo = "7397430279";
